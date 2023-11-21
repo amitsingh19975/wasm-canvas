@@ -16,10 +16,10 @@ jobs:
       
 
       - name: Setup Rust
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/toolchain@v1
         with:
-          command: build
-          args: --release --all-features
+          toolchain: stable
+          override: true  
       
       - name: Setup Wasm Pack
         uses: jetli/wasm-pack-action@v0.4.0
@@ -28,10 +28,9 @@ jobs:
 
       - name: Building Wasm
         run: |
-          pushd
           cd ./src/wasm
           wasm-pack build
-          popd
+          cd ../..
 
       - name: Installing Bun
         uses: oven-sh/setup-bun@v1
