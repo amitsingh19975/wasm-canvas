@@ -2,9 +2,13 @@ import wasm from "vite-plugin-wasm";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { defineConfig } from "vite";
 
-export default defineConfig({
-  plugins: [
-    wasm(),
-    topLevelAwait(),
-  ]
+export default defineConfig(({ mode }) => {
+	return {
+		plugins: [
+            wasm(),
+            topLevelAwait(),
+        ],
+		mode: mode,
+		base: mode === "production" ? "/wasm-canvas/" : "/",
+	};
 });
